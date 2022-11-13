@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users ( `ChatID` int(11) );
 
-SELECT * FROM users
+SELECT * FROM `users`
 
-INSERT IF NOT EXISTS INTO users VALUES (?)
+INSERT INTO `users` VALUES (?)
