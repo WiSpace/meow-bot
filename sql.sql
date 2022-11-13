@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS users ( `ChatID` int(11) );
+
+SELECT * FROM users
+
+INSERT IF NOT EXISTS INTO users VALUES (?)
