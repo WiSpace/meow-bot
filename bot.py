@@ -1,4 +1,3 @@
-import os
 import sqlite3
 import telebot
 from itertools import chain
@@ -7,11 +6,12 @@ from itertools import chain
 connection = sqlite3.connect("users.db", check_same_thread=False)
 cursor = connection.cursor()
 
-bot = telebot.TeleBot(os.getenv("TOKEN"))
+bot = telebot.TeleBot("???")
 
 
 @bot.message_handler(content_types='text')
 def new_message(msg):
+    print(msg.chat.id, "EEEEEEEEEEEEEEEEEEEEEEE")
     cursor.execute("SELECT * FROM users")
     chat_ids = list(chain(*cursor.fetchall()))
 
@@ -21,7 +21,7 @@ def new_message(msg):
     else:
         # insert new ID in database
         cursor.execute(
-            f"INSERT INTO users VALUES ({int(msg.chat.id)})")
+            f"INSERT INTO users VALUES ('{int(msg.chat.id)}')")
         connection.commit()
 
         # send hello world message

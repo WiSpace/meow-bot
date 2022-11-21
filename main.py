@@ -1,12 +1,10 @@
 import schedule
 import threading
 from datetime import time
-
 import bot
 from send_cats import Sender
 
 s = Sender(bot.bot)
-
 
 # for schedule
 def run_continuously():
@@ -35,6 +33,5 @@ send_on("20:00")
 
 stop_run_continuously = run_continuously()
 
-print(1)
 # start bot
 bot.bot.infinity_polling()

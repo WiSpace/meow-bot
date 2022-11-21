@@ -1,3 +1,4 @@
+import sys
 import requests
 import sqlite3
 from io import BytesIO
@@ -19,15 +20,18 @@ class Sender:
             r = requests.get(
                 "https://api.thecatapi.com/v1/images/search?limit=1",
                 headers={
-                    "x-api-key":
-                    "live_sX9hcQBAYnfkpyOSGIuNnajy7cIXuUjp2niwAvSkYcr6NxReGVqVIIzjUNbT0r68"
+                    "x-api-key": "your api key"
                 }).json()[0]
 
             img = requests.get(r['url']).content
 
             # send it
             with BytesIO(img) as img_bytes:
-                self.bot.send_photo(
-                    id,
-                    photo=img_bytes,
-                    caption="meeeow! вот тебе еще один милый котик)")
+                try:
+                    self.bot.send_photo(
+                        id,
+                        photo=img_bytes,
+                        caption="meeeow! вот тебе еще один милый котик)")
+                except:
+                    print(sys.exc_info())
+                    continue
