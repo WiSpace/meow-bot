@@ -1,7 +1,5 @@
-import sys
-import requests
+import wcatapi as wca
 import sqlite3
-from io import BytesIO
 
 
 class Sender:
@@ -16,22 +14,14 @@ class Sender:
         ids = self.cursor.fetchall()  # list of char ids
 
         for id in ids:
-            # get cat img
-            r = requests.get(
-                "https://api.thecatapi.com/v1/images/search?limit=1",
-                headers={
-                    "x-api-key": "your api key"
-                }).json()[0]
-
-            img = requests.get(r['url']).content
-
-            # send it
-            with BytesIO(img) as img_bytes:
+            with wca.random_cat().as_file() as img_bytes:
                 try:
                     self.bot.send_photo(
                         id,
                         photo=img_bytes,
-                        caption="meeeow! вот тебе еще один милый котик)")
+                        caption=
+                        "держи тебе нового милашку-котика!\n\nи помни, ты крутышка<3"
+                    )
                 except:
-                    print(sys.exc_info())
+                    print("error. ignore.")
                     continue
